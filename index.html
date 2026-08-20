@@ -1,7 +1,6 @@
-<!DOhttps://github.com/dhruvaprasad04216/vipul-fancy-stores/blob/main/index.htmlCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="SHKZVESWuNz8QO30ej0h--ai10mJwBblXjwCYFcDslA" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vipul Fancy Stores — Sira</title>
@@ -208,6 +207,57 @@
   .aisle-card h3{ font-size:1.15rem; margin-bottom:6px; }
   .aisle-card p{ font-size:0.92rem; color:var(--ink-soft); }
 
+  /* ---------- PHOTO GALLERY ---------- */
+  .gallery-cta{
+    text-align:center;
+    background: var(--cream-card);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 40px 24px;
+  }
+  .gallery-cta p{ color:var(--ink-soft); margin: 10px auto 20px; max-width: 46ch; }
+  .lightbox{
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(20,14,10,0.94);
+    display:none;
+    align-items:center; justify-content:center;
+    flex-direction: column;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-img-wrap{
+    max-width: 92vw; max-height: 78vh;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lightbox img{
+    max-width: 92vw; max-height: 78vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lightbox-close{
+    position:absolute; top:18px; right:22px;
+    background: rgba(255,255,255,0.12);
+    border:none; color:white; font-size:1.6rem;
+    width:44px; height:44px; border-radius:50%;
+    cursor:pointer;
+  }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background: rgba(255,255,255,0.12);
+    border:none; color:white; font-size:1.8rem;
+    width:52px; height:52px; border-radius:50%;
+    cursor:pointer;
+  }
+  .lightbox-prev{ left: 14px; }
+  .lightbox-next{ right: 14px; }
+  .lightbox-counter{
+    color: rgba(255,255,255,0.75);
+    margin-top: 16px; font-size:0.9rem;
+  }
+  @media (max-width:600px){
+    .lightbox-nav{ width:42px; height:42px; font-size:1.4rem; }
+  }
+
   /* ---------- WHY / TRUST ---------- */
   .trust-band{
     background: var(--ink);
@@ -343,7 +393,7 @@
       </div>
       <div class="hero-meta">
         <div><strong>A–Z</strong>range under one roof</div>
-        <div><strong>9AM–9PM</strong>most days</div>
+        <div><strong>9AM–10PM</strong>open all 7 days</div>
         <div><strong>3.9★</strong>on Google, 50+ reviews</div>
       </div>
     </div>
@@ -445,6 +495,34 @@
 
 <section class="section">
   <div class="wrap">
+    <div class="gallery-cta">
+      <div class="section-eyebrow" style="justify-content:center; display:flex;">In-store photos</div>
+      <h2>See what's actually on the shelves</h2>
+      <p>Real photos from inside Vipul Fancy Stores, sorted by section — browse them one at a time, just like walking down the aisle.</p>
+      <div class="hero-actions" style="justify-content:center; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="openGallery('toys')">🧸 Toys & Games</button>
+        <button class="btn btn-primary" onclick="openGallery('decor_gifts')">🪔 Gifts & Decor</button>
+        <button class="btn btn-primary" onclick="openGallery('kitchenware_essentials')">🍽️ Kitchenware</button>
+        <button class="btn btn-primary" onclick="openGallery('bags_bottles')">🎒 Bags & Bottles</button>
+        <button class="btn btn-primary" onclick="openGallery('stationery')">📓 Stationery</button>
+        <button class="btn btn-primary" onclick="openGallery('cosmetics')">💇 Cosmetics</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeGallery()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navGallery(-1)">‹</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="Shop photo">
+  </div>
+  <button class="lightbox-nav lightbox-next" onclick="navGallery(1)">›</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
+<section class="section">
+  <div class="wrap">
     <div class="trust-band">
       <div class="trust-item">
         <strong>A–Z</strong>
@@ -501,11 +579,13 @@
         <div class="info-row"><div class="k">Phone</div><div><a href="tel:+917760657919">+91 77606 57919</a></div></div>
         <div class="info-row"><div class="k">Category</div><div>Fancy store — toys, cosmetics, jewelry, gifts, decor</div></div>
         <table class="hours-table" style="margin-top:16px;">
-          <tr><td>Monday</td><td>9:00 AM – 9:00 PM</td></tr>
-          <tr><td>Tue – Thu</td><td>9:00 AM – 5:00 PM</td></tr>
-          <tr><td>Friday</td><td>9:00 AM – 5:00 PM</td></tr>
-          <tr><td>Saturday</td><td>Closed</td></tr>
-          <tr><td>Sunday</td><td>9:00 AM – 5:00 PM</td></tr>
+          <tr><td>Monday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Tuesday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Wednesday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Thursday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Friday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Saturday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Sunday</td><td>9:00 AM – 10:00 PM</td></tr>
         </table>
       </div>
       <div class="map-pin">
@@ -538,5 +618,156 @@
   </div>
 </footer>
 
+<script>
+  const galleryData = {
+  "toys": { label: "Toys & Games", images: [
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_25_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_25_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_20_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_23_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_23_PM__2_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_35_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_35_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_28_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_29_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_39_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_39_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_40_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_41_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_42_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_43_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_43_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_45_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_45_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_46_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_46_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_54_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_54_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_54_PM__2_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_55_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_55_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_56_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_56_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_57_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_57_PM__2_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_58_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_58_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_58_PM__2_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_59_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_25_00_PM.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_17_PM__1_.jpg",
+      "images/toys/WhatsApp_Image_2026-08-19_at_8_24_50_PM.jpg"
+  ] },
+  "decor_gifts": { label: "Gifts, Decor & Idols", images: [
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_24_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_6_29_50_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_18_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_19_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_24_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_30_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_31_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_31_PM__2_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_31_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_33_PM__2_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_33_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_34_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_28_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_30_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_36_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_37_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_37_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_38_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_38_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_44_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_47_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_47_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_48_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_48_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_49_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_50_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_50_PM__2_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_51_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_51_PM__2_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_52_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_52_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_52_PM__2_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_53_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_25_00_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_25_01_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_25_01_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_25_01_PM__2_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_25_01_PM__3_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_21_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_16_PM.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_29_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_51_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_53_PM__1_.jpg",
+      "images/decor_gifts/WhatsApp_Image_2026-08-19_at_8_24_53_PM__2_.jpg"
+  ] },
+  "kitchenware_essentials": { label: "Kitchenware & Essentials", images: [
+      "images/kitchenware_essentials/WhatsApp_Image_2026-08-19_at_8_24_23_PM.jpg",
+      "images/kitchenware_essentials/WhatsApp_Image_2026-08-19_at_8_24_32_PM__1_.jpg",
+      "images/kitchenware_essentials/WhatsApp_Image_2026-08-19_at_8_24_32_PM.jpg",
+      "images/kitchenware_essentials/WhatsApp_Image_2026-08-19_at_8_24_33_PM__1_.jpg",
+      "images/kitchenware_essentials/WhatsApp_Image_2026-08-19_at_8_24_40_PM__1_.jpg",
+      "images/kitchenware_essentials/WhatsApp_Image_2026-08-19_at_8_24_41_PM__1_.jpg"
+  ] },
+  "stationery": { label: "Stationery", images: [
+      "images/stationery/WhatsApp_Image_2026-08-19_at_8_24_21_PM__1_.jpg",
+      "images/stationery/WhatsApp_Image_2026-08-19_at_8_24_22_PM.jpg"
+  ] },
+  "bags_bottles": { label: "Bags & Bottles", images: [
+      "images/bags_bottles/WhatsApp_Image_2026-08-19_at_8_24_59_PM__1_.jpg",
+      "images/bags_bottles/WhatsApp_Image_2026-08-19_at_8_25_00_PM__2_.jpg",
+      "images/bags_bottles/WhatsApp_Image_2026-08-19_at_8_24_36_PM.jpg",
+      "images/bags_bottles/WhatsApp_Image_2026-08-19_at_8_24_55_PM__2_.jpg",
+      "images/bags_bottles/WhatsApp_Image_2026-08-19_at_8_24_56_PM__2_.jpg"
+  ] },
+  "cosmetics": { label: "Cosmetics & Personal Care", images: [
+      "images/cosmetics/WhatsApp_Image_2026-08-19_at_8_24_27_PM.jpg"
+  ] },
+};
+  let currentCategory = null;
+  let galleryIndex = 0;
+
+  function openGallery(catKey){
+    currentCategory = catKey;
+    galleryIndex = 0;
+    document.getElementById('lightbox').classList.add('open');
+    updateGallery();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeGallery(){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function navGallery(dir){
+    const imgs = galleryData[currentCategory].images;
+    galleryIndex = (galleryIndex + dir + imgs.length) % imgs.length;
+    updateGallery();
+  }
+  function updateGallery(){
+    const cat = galleryData[currentCategory];
+    document.getElementById('lightbox-img').src = cat.images[galleryIndex];
+    document.getElementById('lightbox-counter').textContent = cat.label + ' — ' + (galleryIndex+1) + ' / ' + cat.images.length;
+  }
+  document.addEventListener('keydown', function(e){
+    const lb = document.getElementById('lightbox');
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') closeGallery();
+    if(e.key === 'ArrowRight') navGallery(1);
+    if(e.key === 'ArrowLeft') navGallery(-1);
+  });
+  // basic swipe support
+  let touchStartX = 0;
+  const lbEl = document.getElementById('lightbox');
+  lbEl.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].screenX; });
+  lbEl.addEventListener('touchend', function(e){
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if(dx > 50) navGallery(-1);
+    else if(dx < -50) navGallery(1);
+  });
+</script>
 </body>
 </html>
+
