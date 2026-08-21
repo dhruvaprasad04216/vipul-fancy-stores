@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vipul Fancy Stores — Sira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --marigold: #F0A427;
+    --marigold-deep: #D6841A;
+    --vermilion: #D14B2E;
+    --teal: #0C6E71;
+    --magenta: #C23A6B;
+    --cream: #FFF6E9;
+    --cream-card: #FFFCF6;
+    --ink: #2B1D14;
+    --ink-soft: #6B5A4A;
+    --line: rgba(43,29,20,0.12);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display{
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  :focus-visible{
+    outline: 3px solid var(--teal);
+    outline-offset: 3px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,246,233,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 0;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size: 1.2rem;
+  }
+  .brand-mark{
+    width:38px; height:38px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--marigold), var(--vermilion));
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-size:1.1rem; font-weight:800;
+    flex-shrink:0;
+  }
+  .nav-cta{
+    display:flex; gap:10px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-weight:600; font-size:0.92rem;
+    border: 1.5px solid transparent;
+    cursor:pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary{
+    background: var(--vermilion); color:white;
+    box-shadow: 0 6px 16px -6px rgba(209,75,46,0.55);
+  }
+  .btn-ghost{
+    border-color: var(--ink); color:var(--ink);
+    background:transparent;
+  }
+  .btn-sm{ padding:8px 14px; font-size:0.85rem; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 64px 0 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 40px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.82rem; font-weight:600; letter-spacing:0.02em;
+    color: var(--teal);
+    background: rgba(12,110,113,0.08);
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 18px;
+  }
+  .hero h1{
+    font-size: clamp(2.6rem, 5.5vw, 4.3rem);
+    line-height: 0.98;
+    color: var(--ink);
+  }
+  .hero h1 .accent{ color: var(--vermilion); }
+  .hero p.lead{
+    margin-top: 18px;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero-actions{
+    display:flex; gap:14px; margin-top: 30px; flex-wrap:wrap;
+  }
+  .hero-meta{
+    display:flex; gap:24px; margin-top: 34px; flex-wrap:wrap;
+  }
+  .hero-meta div{ font-size:0.85rem; color:var(--ink-soft); }
+  .hero-meta strong{
+    display:block; font-family:'Baloo 2',sans-serif; font-size:1.5rem; color:var(--ink);
+  }
+
+  /* shelf illustration */
+  .shelf-art{
+    position:relative;
+    background: var(--cream-card);
+    border: 1.5px solid var(--line);
+    border-radius: 24px;
+    padding: 22px;
+    box-shadow: 0 20px 45px -20px rgba(43,29,20,0.25);
+  }
+  .shelf-row{
+    display:flex; align-items:center; gap:12px;
+    padding: 12px 8px;
+    border-bottom: 1.5px dashed var(--line);
+  }
+  .shelf-row:last-child{ border-bottom:none; }
+  .shelf-icon{
+    width:44px; height:44px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .shelf-label{ font-weight:600; font-size:0.95rem; }
+  .shelf-tag{ font-size:0.78rem; color:var(--ink-soft); }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{ padding: 70px 0; }
+  .section-head{
+    max-width: 620px;
+    margin-bottom: 40px;
+  }
+  .section-eyebrow{
+    font-size:0.82rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    color: var(--vermilion);
+    margin-bottom:10px;
+  }
+  .section h2{
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  }
+  .section p.sub{ color:var(--ink-soft); margin-top:12px; font-size:1.05rem; }
+
+  /* ---------- CATEGORY AISLES (signature) ---------- */
+  .aisles{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .aisle-card{
+    background: var(--cream-card);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+    position:relative;
+    overflow:hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .aisle-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 18px 32px -18px rgba(43,29,20,0.3);
+  }
+  .aisle-num{
+    font-family:'Baloo 2',sans-serif; font-weight:800;
+    font-size:0.78rem; color: var(--ink-soft);
+    letter-spacing:0.08em;
+  }
+  .aisle-icon{
+    width:52px; height:52px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    margin: 14px 0 16px;
+  }
+  .aisle-card h3{ font-size:1.15rem; margin-bottom:6px; }
+  .aisle-card p{ font-size:0.92rem; color:var(--ink-soft); }
+
+  /* ---------- PHOTO GALLERY ---------- */
+  .gallery-cta{
+    text-align:center;
+    background: var(--cream-card);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 40px 24px;
+  }
+  .gallery-cta p{ color:var(--ink-soft); margin: 10px auto 20px; max-width: 46ch; }
+  .lightbox{
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(20,14,10,0.94);
+    display:none;
+    align-items:center; justify-content:center;
+    flex-direction: column;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-img-wrap{
+    max-width: 92vw; max-height: 78vh;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lightbox img{
+    max-width: 92vw; max-height: 78vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lightbox-close{
+    position:absolute; top:18px; right:22px;
+    background: rgba(255,255,255,0.12);
+    border:none; color:white; font-size:1.6rem;
+    width:44px; height:44px; border-radius:50%;
+    cursor:pointer;
+  }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background: rgba(255,255,255,0.12);
+    border:none; color:white; font-size:1.8rem;
+    width:52px; height:52px; border-radius:50%;
+    cursor:pointer;
+  }
+  .lightbox-prev{ left: 14px; }
+  .lightbox-next{ right: 14px; }
+  .lightbox-counter{
+    color: rgba(255,255,255,0.75);
+    margin-top: 16px; font-size:0.9rem;
+  }
+  @media (max-width:600px){
+    .lightbox-nav{ width:42px; height:42px; font-size:1.4rem; }
+  }
+
+  /* ---------- WHY / TRUST ---------- */
+  .trust-band{
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 28px;
+    padding: 48px 40px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .trust-item strong{
+    font-family:'Baloo 2', sans-serif;
+    font-size: 2rem;
+    display:block;
+    color: var(--marigold);
+    margin-bottom: 6px;
+  }
+  .trust-item p{ color: rgba(255,246,233,0.75); font-size:0.92rem; }
+
+  /* ---------- REVIEWS ---------- */
+  .review-strip{
+    display:grid; grid-template-columns: repeat(3,1fr); gap:18px;
+  }
+  .review-card{
+    background: var(--cream-card);
+    border:1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .stars{ color: var(--marigold-deep); font-size:0.95rem; margin-bottom:10px; letter-spacing:2px; }
+  .review-card p{ font-size:0.93rem; color:var(--ink); }
+  .review-card span{ display:block; margin-top:14px; font-size:0.82rem; color:var(--ink-soft); font-weight:600; }
+
+  /* ---------- LOCATION / CONTACT ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .info-card{
+    background: var(--cream-card);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px;
+  }
+  .info-card h3{ font-size:1.3rem; margin-bottom: 18px; }
+  .info-row{
+    display:flex; gap:14px; padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size:0.95rem;
+  }
+  .info-row:last-child{ border-bottom:none; }
+  .info-row .k{ color:var(--ink-soft); min-width:96px; font-weight:600; }
+  .hours-table{ width:100%; font-size:0.92rem; }
+  .hours-table tr{ border-bottom: 1px solid var(--line); }
+  .hours-table td{ padding: 9px 0; }
+  .hours-table td:last-child{ text-align:right; font-weight:600; }
+  .map-pin{
+    background: linear-gradient(160deg, var(--teal), #0a4d4f);
+    border-radius: var(--radius);
+    color: white;
+    padding: 30px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height: 260px;
+  }
+  .map-pin h3{ color:white; font-size:1.3rem; }
+  .map-pin p{ color: rgba(255,255,255,0.8); margin-top:8px; font-size:0.92rem; max-width:34ch; }
+
+  /* ---------- CTA FOOTER ---------- */
+  .cta-band{
+    background: linear-gradient(135deg, var(--vermilion), var(--marigold-deep));
+    border-radius: 28px;
+    padding: 56px 40px;
+    text-align:center;
+    color:white;
+  }
+  .cta-band h2{ color:white; font-size: clamp(1.7rem, 3.2vw, 2.4rem); }
+  .cta-band p{ color: rgba(255,255,255,0.88); margin: 14px auto 26px; max-width: 50ch; }
+  .cta-band .btn-primary{ background:white; color:var(--vermilion); }
+  .cta-band .btn-ghost{ border-color: rgba(255,255,255,0.7); color:white; }
+  .cta-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+  footer{
+    padding: 36px 0 50px;
+    text-align:center;
+    font-size:0.85rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .aisles{ grid-template-columns: repeat(2, 1fr); }
+    .trust-band{ grid-template-columns: 1fr; text-align:center; }
+    .review-strip{ grid-template-columns: 1fr; }
+    .contact-grid{ grid-template-columns: 1fr; }
+    .nav-cta .btn span.full{ display:none; }
+  }
+  @media (max-width: 520px){
+    .aisles{ grid-template-columns: 1fr; }
+    .hero-actions{ flex-direction:column; }
+    .hero-actions .btn{ justify-content:center; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">
+      <div class="brand-mark">V</div>
+      Vipul Fancy Stores
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" href="https://maps.google.com/?cid=14024410081629916636" target="_blank" rel="noopener">Directions</a>
+      <a class="btn btn-primary btn-sm" href="tel:+917760657919">📞 <span class="full">Call Shop</span></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">● Open today · Rangappanapalya, Sira</span>
+      <h1>One shop.<br>Every <span class="accent">shelf</span><br>you need.</h1>
+      <p class="lead">Toys, cosmetics, bangles, gifts, home decor and daily essentials — all under one roof in the heart of Sira. Walk in, or call ahead to check what's in stock.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="tel:+917760657919">📞 Call +91 77606 57919</a>
+        <a class="btn btn-ghost" href="#aisles">Browse what we stock</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>A–Z</strong>range under one roof</div>
+        <div><strong>9AM–10PM</strong>open all 7 days</div>
+        <div><strong>3.9★</strong>on Google, 50+ reviews</div>
+      </div>
+    </div>
+
+    <div class="shelf-art" aria-hidden="true">
+      <div class="shelf-row">
+        <div class="shelf-icon" style="background:rgba(240,164,39,0.18)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.5L20 9l-4 4 1 5.5L12 16l-5 2.5L8 13 4 9l5.5-.5L12 3z" fill="#D6841A"/></svg>
+        </div>
+        <div><div class="shelf-label">Toys & Games</div><div class="shelf-tag">Kids' section, all ages</div></div>
+      </div>
+      <div class="shelf-row">
+        <div class="shelf-icon" style="background:rgba(194,58,107,0.16)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="18" rx="3" stroke="#C23A6B" stroke-width="2"/><path d="M9 3h6v3H9z" fill="#C23A6B"/></svg>
+        </div>
+        <div><div class="shelf-label">Cosmetics</div><div class="shelf-tag">Everyday & festive brands</div></div>
+      </div>
+      <div class="shelf-row">
+        <div class="shelf-icon" style="background:rgba(12,110,113,0.14)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#0C6E71" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#0C6E71" stroke-width="2"/></svg>
+        </div>
+        <div><div class="shelf-label">Bangles & Jewelry</div><div class="shelf-tag">For every occasion</div></div>
+      </div>
+      <div class="shelf-row">
+        <div class="shelf-icon" style="background:rgba(209,75,46,0.15)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="16" height="12" rx="2" stroke="#D14B2E" stroke-width="2"/><path d="M4 8l8-4 8 4M12 4v16" stroke="#D14B2E" stroke-width="2"/></svg>
+        </div>
+        <div><div class="shelf-label">Gift Items</div><div class="shelf-tag">Birthdays, weddings, pooja</div></div>
+      </div>
+      <div class="shelf-row">
+        <div class="shelf-icon" style="background:rgba(240,164,39,0.18)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 20V10l6-6 6 6v10" stroke="#D6841A" stroke-width="2" fill="none"/><path d="M10 20v-6h4v6" stroke="#D6841A" stroke-width="2"/></svg>
+        </div>
+        <div><div class="shelf-label">Home & Decor</div><div class="shelf-tag">Mats, lights, interiors</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="aisles">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Walk the aisles</div>
+      <h2>Everything Sira families come in for</h2>
+      <p class="sub">Vipul Fancy Stores has grown into a full A-to-Z shop — here's what's stocked on the shelves, aisle by aisle.</p>
+    </div>
+    <div class="aisles">
+      <div class="aisle-card">
+        <div class="aisle-num">AISLE 01</div>
+        <div class="aisle-icon" style="background:rgba(240,164,39,0.18)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.5L20 9l-4 4 1 5.5L12 16l-5 2.5L8 13 4 9l5.5-.5L12 3z" fill="#D6841A"/></svg>
+        </div>
+        <h3>Toys & Games</h3>
+        <p>For kids and adults — puzzles, playsets, and party favourites.</p>
+      </div>
+      <div class="aisle-card">
+        <div class="aisle-num">AISLE 02</div>
+        <div class="aisle-icon" style="background:rgba(194,58,107,0.16)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="18" rx="3" stroke="#C23A6B" stroke-width="2"/><path d="M9 3h6v3H9z" fill="#C23A6B"/></svg>
+        </div>
+        <h3>Cosmetics</h3>
+        <p>Most brands for men and women, everyday to special-occasion.</p>
+      </div>
+      <div class="aisle-card">
+        <div class="aisle-num">AISLE 03</div>
+        <div class="aisle-icon" style="background:rgba(12,110,113,0.14)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#0C6E71" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#0C6E71" stroke-width="2"/></svg>
+        </div>
+        <h3>Bangles, Bindi & Jewelry</h3>
+        <p>Fancy jewelry and accessories for every festival and function.</p>
+      </div>
+      <div class="aisle-card">
+        <div class="aisle-num">AISLE 04</div>
+        <div class="aisle-icon" style="background:rgba(209,75,46,0.15)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="16" height="12" rx="2" stroke="#D14B2E" stroke-width="2"/><path d="M4 8l8-4 8 4M12 4v16" stroke="#D14B2E" stroke-width="2"/></svg>
+        </div>
+        <h3>Gifts & Dress Materials</h3>
+        <p>Gift-ready picks and dress-designing materials for tailoring.</p>
+      </div>
+      <div class="aisle-card">
+        <div class="aisle-num">AISLE 05</div>
+        <div class="aisle-icon" style="background:rgba(240,164,39,0.18)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 20V10l6-6 6 6v10" stroke="#D6841A" stroke-width="2" fill="none"/><path d="M10 20v-6h4v6" stroke="#D6841A" stroke-width="2"/></svg>
+        </div>
+        <h3>Home & Interior Decor</h3>
+        <p>3D mats, cloth mats, rubber mats, and decorative pieces for the house.</p>
+      </div>
+      <div class="aisle-card">
+        <div class="aisle-num">AISLE 06</div>
+        <div class="aisle-icon" style="background:rgba(12,110,113,0.14)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3v14M6 21c0-4 2.5-6 6-6s6 2 6 6" stroke="#0C6E71" stroke-width="2"/></svg>
+        </div>
+        <h3>Daily Essentials</h3>
+        <p>Brooms, vacuum cleaners, bathroom needs and household basics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="gallery-cta">
+      <div class="section-eyebrow" style="justify-content:center; display:flex;">In-store photos</div>
+      <h2>See what's actually on the shelves</h2>
+      <p>Real photos from inside Vipul Fancy Stores, sorted by section — browse them one at a time, just like walking down the aisle.</p>
+      <div class="hero-actions" style="justify-content:center; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="openGallery('toys')">🧸 Toys & Games</button>
+        <button class="btn btn-primary" onclick="openGallery('decor_gifts')">🪔 Gifts & Decor</button>
+        <button class="btn btn-primary" onclick="openGallery('bangles_jewelry')">💍 Bangles & Jewelry</button>
+        <button class="btn btn-primary" onclick="openGallery('cosmetics')">💇 Cosmetics</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeGallery()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navGallery(-1)">‹</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="Shop photo">
+  </div>
+  <button class="lightbox-nav lightbox-next" onclick="navGallery(1)">›</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="trust-band">
+      <div class="trust-item">
+        <strong>A–Z</strong>
+        <p>One stop for toys to home essentials — no need to visit five different shops.</p>
+      </div>
+      <div class="trust-item">
+        <strong>50+</strong>
+        <p>Customer reviews on Google, with regulars from across Sira and nearby villages.</p>
+      </div>
+      <div class="trust-item">
+        <strong>Since day one</strong>
+        <p>A trusted name on Rangappanapalya road, known for bargaining fairly on fancy items.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">What Sira says</div>
+      <h2>Reviews from real customers</h2>
+    </div>
+    <div class="review-strip">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>Customers describe it as an easy first stop when they're unsure exactly what they need — the range covers most categories in one visit.</p>
+        <span>— Google review</span>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★☆</div>
+        <p>Regulars point to the gifting and fancy-item selection as a strong reason to come back for birthdays and functions.</p>
+        <span>— Google review</span>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★☆</div>
+        <p>Shoppers mention that prices are negotiable on fancy articles and bags, which locals appreciate.</p>
+        <span>— Google review</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">Find us</div>
+      <h2>Visit the shop</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="info-card">
+        <h3>Shop details</h3>
+        <div class="info-row"><div class="k">Address</div><div>Rangappanapalya, Sira, Karnataka 572137</div></div>
+        <div class="info-row"><div class="k">Phone</div><div><a href="tel:+917760657919">+91 77606 57919</a></div></div>
+        <div class="info-row"><div class="k">Category</div><div>Fancy store — toys, cosmetics, jewelry, gifts, decor</div></div>
+        <table class="hours-table" style="margin-top:16px;">
+          <tr><td>Monday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Tuesday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Wednesday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Thursday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Friday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Saturday</td><td>9:00 AM – 10:00 PM</td></tr>
+          <tr><td>Sunday</td><td>9:00 AM – 10:00 PM</td></tr>
+        </table>
+      </div>
+      <div class="map-pin">
+        <div>
+          <h3>Get directions</h3>
+          <p>Open the shop's exact location on Google Maps and get walking or driving directions in one tap.</p>
+        </div>
+        <a class="btn btn-primary" style="background:white; color:var(--teal); align-self:flex-start;" href="https://maps.google.com/?cid=14024410081629916636" target="_blank" rel="noopener">📍 Open in Google Maps</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Skip the trip if you're not sure we have it — just call.</h2>
+      <p>Check stock, ask about a gift, or get directions before you head out. We're happy to help over the phone.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="tel:+917760657919">📞 Call the shop</a>
+        <a class="btn btn-ghost" href="https://maps.google.com/?cid=14024410081629916636" target="_blank" rel="noopener">Get directions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Vipul Fancy Stores · Rangappanapalya, Sira, Karnataka · Demo site
+  </div>
+</footer>
+
+<script>
+      const galleryData = {
+  "toys": { label: "Toys & Games", images: [
+      "WhatsApp_Image_2026-08-19_at_8_24_25_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_25_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_20_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_23_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_23_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_35_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_35_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_28_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_29_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_39_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_39_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_40_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_41_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_42_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_43_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_43_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_45_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_45_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_46_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_46_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_54_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_54_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_54_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_55_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_55_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_56_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_56_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_57_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_57_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_58_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_58_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_58_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_59_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_00_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_17_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_50_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_03_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_03_PM__3_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_04_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_28_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_43_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_45_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_59_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_00_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_36_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_55_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_56_PM__2_.jpg"
+  ] },
+  "decor_gifts": { label: "Gifts, Decor & Idols", images: [
+      "WhatsApp_Image_2026-08-19_at_8_24_24_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_6_29_50_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_18_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_19_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_24_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_30_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_31_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_31_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_31_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_33_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_33_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_34_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_28_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_30_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_36_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_37_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_37_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_38_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_38_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_44_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_47_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_47_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_48_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_48_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_49_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_50_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_50_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_51_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_51_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_52_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_52_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_52_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_53_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_00_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_01_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_01_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_01_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_01_PM__3_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_21_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_16_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_29_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_51_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_53_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_53_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_23_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_32_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_32_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_33_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_40_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_41_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_21_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_24_22_PM.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_03_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-19_at_8_25_03_PM__2_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_26_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_27_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_29_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_33_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_33_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_39_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_46_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_46_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_47_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_48_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_52_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_53_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_54_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_54_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_55_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_56_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_10_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_10_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_15_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_16_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_18_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_19_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_25_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_26_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_31_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_37_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_38_PM.jpg"
+  ] },
+  "bangles_jewelry": { label: "Bangles & Jewelry", images: [
+      "WhatsApp_Image_2026-08-20_at_12_29_29_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_30_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_32_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_34_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_36_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_38_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_49_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_50_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_00_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_04_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_04_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_12_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_13_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_17_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_19_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_20_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_20_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_21_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_22_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_25_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_27_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_28_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_28_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_29_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_30_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_36_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_39_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_39_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_40_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_41_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_42_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_44_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_45_PM.jpg"
+  ] },
+  "cosmetics": { label: "Cosmetics & Personal Care", images: [
+      "WhatsApp_Image_2026-08-19_at_8_24_27_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_31_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_36_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_38_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_39_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_42_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_42_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_43_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_51_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_52_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_53_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_55_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_56_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_29_59_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_06_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_09_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_13_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_17_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_22_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_23_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_23_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_24_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_24_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_27_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_29_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_32_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_32_PM__1_.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_33_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_34_PM.jpg",
+      "WhatsApp_Image_2026-08-20_at_12_30_35_PM.jpg"
+  ] },
+};
+  let currentCategory = null;
+  let galleryIndex = 0;
+
+  function openGallery(catKey){
+    currentCategory = catKey;
+    galleryIndex = 0;
+    document.getElementById('lightbox').classList.add('open');
+    updateGallery();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeGallery(){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function navGallery(dir){
+    const imgs = galleryData[currentCategory].images;
+    galleryIndex = (galleryIndex + dir + imgs.length) % imgs.length;
+    updateGallery();
+  }
+  function updateGallery(){
+    const cat = galleryData[currentCategory];
+    document.getElementById('lightbox-img').src = cat.images[galleryIndex];
+    document.getElementById('lightbox-counter').textContent = cat.label + ' — ' + (galleryIndex+1) + ' / ' + cat.images.length;
+  }
+  document.addEventListener('keydown', function(e){
+    const lb = document.getElementById('lightbox');
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') closeGallery();
+    if(e.key === 'ArrowRight') navGallery(1);
+    if(e.key === 'ArrowLeft') navGallery(-1);
+  });
+  // basic swipe support
+  let touchStartX = 0;
+  const lbEl = document.getElementById('lightbox');
+  lbEl.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].screenX; });
+  lbEl.addEventListener('touchend', function(e){
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if(dx > 50) navGallery(-1);
+    else if(dx < -50) navGallery(1);
+  });
+</script>
+</body>
+</html>
